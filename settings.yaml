@@ -156,16 +156,8 @@ spec:
           name: icp_text
           label: ICP备案号
         - $formkit: text
-          name: icp_link
-          label: ICP备案跳转链接
-          value: https://beian.miit.gov.cn/
-        - $formkit: text
           name: gongan_text
           label: 公安联网备案号
-        - $formkit: text
-          name: gongan_link
-          label: 公安联网备案跳转链接
-          value: https://beian.mps.gov.cn/#/query/webSearch
 ---
 
 apiVersion: v1alpha1
@@ -236,8 +228,8 @@ spec:
     - $formkit: radio
       name: custom_icon
       id: custom_icon
-      label: 是否自定义图标
-      help: 控制此链接是否自定义图标
+      label: 是否使用自定义 SVG 图标
+      help: 若不启用，则使用 Logo 链接图片
       value: "false"
       options: 
         - label: 是
@@ -251,7 +243,7 @@ spec:
       value: ""
       height: 100px
       language: html
-      help: 方案1：粘贴图标的SVG代码(推荐)；方案2：使用图片地址，需要img标签，如<img src="/assets/img/logo.png" />
+      help: 粘贴图标的 SVG 代码
     - $formkit: radio
       name: login_visible_link
       label: 是否登录可见
