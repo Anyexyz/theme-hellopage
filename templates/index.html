@@ -5,120 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${site.title}"></title>
-    <script th:src="@{/assets/js/jquery.min.js?v={version}(version=${theme.spec.version})}"
-        type="application/javascript"></script>
-    <link th:href="@{/assets/css/bootstrap.min.css?v={version}(version=${theme.spec.version})}" type="text/css"
-        rel="stylesheet">
+    <script src="https://cdn.jsdmirror.com/npm/jquery@3.5.1/dist/jquery.min.js" type="application/javascript"></script>
+    <link href="https://cdn.jsdmirror.com/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" type="text/css"
         rel="stylesheet">
 </head>
 
 <body th:with="user_login = ${#authentication.name != 'anonymousUser'}">
     <!-- 页面背景 -->
-    <div class="banner-video">
-        <th:block th:if="${theme.config.style.cover_type == 'false'}">
-            <style>
-                .banner-video {
-                    position: fixed !important;
-                }
-            </style>
-        </th:block>
-        <th:block
-            th:if="${#strings.toLowerCase(#strings.substring(theme.config.style.cover_img, #strings.length(theme.config.style.cover_img) - 4))} == '.mp4'">
-            <video autoplay loop muted>
-                <source th:src="${theme.config.style.cover_img}" type="video/mp4">
-            </video>
-        </th:block>
-        <th:block
-            th:unless="${#strings.toLowerCase(#strings.substring(theme.config.style.cover_img, #strings.length(theme.config.style.cover_img) - 4))} == '.mp4'">
-            <img th:src=${theme.config.style.cover_img} />
-        </th:block>
-        <div class="bottom-cover"
-            style="background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(244 248 251 / 0.6) 50%, rgb(244 248 251) 100%);">
-        </div>
-    </div>
+    <th:block th:replace="~{fragments/banner :: banner}"></th:block>
 
-    <!-- 页面导航 -->
-    <!-- <div class="box">
-        <div class="change-type">
-            <div class="type-left" id="type-left">
-                <ul>
-                    <li data-lylme="search" class="active"><a>搜索</a><span></span></li>
-                    <li th:each="group : ${linkFinder.groupBy()}" data-lylme="group"><a th:text="${group.spec.displayName}"></a><span></span></li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- 顶部导航-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="position: absolute; z-index: 10000;">
-        <button class="navbar-toggler collapsed" style="border: none; outline: none;" type="button"
-            data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <svg class="icon" width="200" height="200">
-                <use xlink:href="#icon-menus"></use>
-            </svg>
-        </button>
-        <div class="type-right">
-            <svg t="1711940240250" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                p-id="7074" width="200" height="200">
-                <path
-                    d="M512 0c281.6 0 512 230.4 512 512s-230.4 512-512 512S0 793.6 0 512 230.4 0 512 0z m192.96 261.888l-259.904 78.784c-51.2 13.76-90.592 53.184-106.336 104.384L259.936 704.96c-5.888 15.776 0 33.472 11.808 45.312 7.872 9.824 21.696 13.76 33.472 13.76 3.936 0 9.856 0 13.792-1.984l259.904-78.784c51.2-13.76 90.592-53.184 106.336-104.384l78.784-259.904c5.888-15.776 0-33.472-11.808-45.312-13.792-13.76-31.52-17.728-47.296-11.808v-0.032z m-96.448 295.424a79.872 79.872 0 0 1-53.184 53.152l-200.864 59.072 61.056-202.816a79.904 79.904 0 0 1 53.184-53.184l200.864-59.072-61.056 202.848zM472.64 512a39.36 39.36 0 1 0 78.72 0 39.36 39.36 0 0 0-78.72 0z"
-                    fill="#dbdbdb" p-id="7075" data-spm-anchor-id="a313x.search_index.0.i6.29583a81RxO4Dj"
-                    class="selected"></path>
-            </svg>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarsExample05">
-            <ul class="navbar-nav mr-auto" th:with="menu = ${menuFinder.getPrimary()}">
-                <li class="nav-item" th:each="menuItem : ${menu.menuItems}">
-                    <a class="nav-link" th:text="${menuItem.status.displayName}" th:href="${menuItem.status.href}"
-                        th:target="${menuItem.spec.target?.value}">
-                    </a>
-                </li>
-            </ul>
-            <div id="main">
-                <div id="show_date">
-                    <script>
-                        setInterval(function () {
-                            var currentTime = new Date().toLocaleDateString(
-                                "zh-CN",
-                                {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    weekday: "long"
-                                },
-                            );
-                            const showDateElement =
-                                document.getElementById("show_date");
-                            if (showDateElement) {
-                                showDateElement.textContent = currentTime;
-                            }
-                        }, 0);
-                    </script>
-                </div>
-                <div id="show_time">
-                    <script>
-                        setInterval(function () {
-                            var currentTime = new Date().toLocaleTimeString(
-                                "zh-CN",
-                                {
-                                    hour12: false,
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                },
-                            );
-                            const showTimeElement =
-                                document.getElementById("show_time");
-                            if (showTimeElement) {
-                                showTimeElement.textContent = currentTime;
-                            }
-                        }, 0);
-                    </script>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- 顶部导航 -->
+    <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 
     <!-- 页面内容 -->
     <div class="container" style="margin-top:10vh; position: relative; z-index: 100;">
@@ -127,10 +25,11 @@
         <p class="content" th:text="${theme.config.style.yiyan != '' ? theme.config.style.yiyan : site.subtitle}"></p>
 
         <!--搜索框-->
-        <div id="search" class="s-search">
+        <div id="search" class="s-search" role="search" aria-label="搜索引擎">
             <div id="search-list" class="hide-type-list">
                 <div class="search-group group-a s-current" style=" margin-top: 50px;">
-                    <ul th:with="search_links = ${theme.config.search.search_links}" class="search-type">
+                    <ul th:with="search_links = ${theme.config.search.search_links}" class="search-type"
+                        role="radiogroup" aria-label="选择搜索引擎">
                         <th:block th:each="search_links : ${search_links}">
                             <li>
                                 <input hidden="" checked="" type="radio" name="type"
@@ -147,8 +46,9 @@
                 </div>
             </div>
             <form action="https://www.bing.com/search?q=" method="get" target="_blank" id="super-search-fm">
-                <input type="text" id="search-text" placeholder="搜索一下" style="outline:0" autocomplete="off" />
-                <button class="submit" type="submit">
+                <input type="text" id="search-text" placeholder="搜索一下" style="outline:0"
+                    autocomplete="off" aria-label="搜索内容" />
+                <button class="submit" type="submit" aria-label="提交搜索">
                     <svg style="width: 22px; height: 22px; margin: 0 20px 0 20px; color: #fff;" class="icon"
                         aria-hidden="true" viewBox="0 0 1024 1024">
                         <path
@@ -156,8 +56,8 @@
                             fill=""></path>
                     </svg>
                 </button>
-                <span> </span>
-                <ul id="word" style="display: none;"></ul>
+                <span></span>
+                <ul id="word" style="display: none;" role="listbox" aria-label="搜索建议"></ul>
             </form>
             <div class="set-check hidden-xs">
                 <input type="checkbox" id="set-search-blank" class="bubble-3" autocomplete="off" />
@@ -197,42 +97,14 @@
             </ul>
         </th:block>
 
-        <script th:src="@{/assets/js/bootstrap.min.js?v={version}(version=${theme.spec.version})}"
-            type="application/javascript"></script>
-        <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"
-            type="application/javascript"></script>
-        <script th:src="@{/assets/js/svg.js?v={version}(version=${theme.spec.version})}"
-            type="application/javascript"></script>
-
-        <div style="display:none;" class="back-to" id="toolBackTop">
-            <a title="返回顶部" onclick="window.scrollTo(0,0);return false;" href="#top" class="back-top"></a>
-        </div>
+        <!-- 公共脚本 -->
+        <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
         <!-- 代码注入位置2 - 页面底部 -->
         <th:block th:utext="${theme.config.html_inject.html_inject_2}"></th:block>
 
-        <div class="mt-5 mb-3 footer text-muted text-center">
-            <div th:if="${not #strings.isEmpty(theme.config.beian.icp_text)}">
-                <!-- ICP备案 -->
-                <a class="icp" href="http://beian.miit.gov.cn/" target="_blank"
-                    th:text="${theme.config.beian.icp_text}">
-                </a>
-            </div>
-            <div th:if="${not #strings.isEmpty(theme.config.beian.gongan_text)}">
-                <!-- 公安备案 -->
-                <a class="icp"
-                    th:href="'https://beian.mps.gov.cn/#/query/webSearch?recordcode=' + ${theme.config.beian.gongan_text}"
-                    target="_blank" rel="nofollow noopener">
-                    <img th:src="@{/assets/img/gongan_beian.png}" alt="公安网备" width="16" height="16">
-                    <span th:text="${theme.config.beian.gongan_text}"></span>
-                </a>
-            </div>
-            <!-- 版权信息 -->
-            <p>Copyright ©[[${#dates.format(new java.util.Date().getTime(), 'yyyy')}]] <a th:href="${site.url}"
-                    th:text="${site.title}"></a>. All Rights Reserved. Powered by <a href="https://halo.run"
-                    target="_blank">Halo [[${site.version}]]</a></p>
-            <halo:footer />
-        </div>
+        <!-- 页脚 -->
+        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
     </div>
 
 </body>

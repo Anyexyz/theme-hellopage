@@ -1,0 +1,77 @@
+<!-- 顶部导航 -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light fixed-top" style="position: absolute; z-index: 10000;" role="navigation" aria-label="主导航">
+    <button class="navbar-toggler collapsed" style="border: none; outline: none;" type="button"
+        data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05"
+        aria-expanded="false" aria-label="切换导航菜单">
+        <svg viewBox="0 0 1024 1024" width="24" height="24" aria-hidden="true" style="fill: currentColor;">
+            <path d="M120 256h784a32 32 0 1 0 0-64H120a32 32 0 0 0 0 64z m0 256h784a32 32 0 1 0 0-64H120a32 32 0 0 0 0 64z m0 256h784a32 32 0 1 0 0-64H120a32 32 0 0 0 0 64z" fill="currentColor"/>
+        </svg>
+    </button>
+    <div class="type-right">
+        <svg t="1711940240250" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="7074" width="200" height="200" aria-hidden="true">
+            <path
+                d="M512 0c281.6 0 512 230.4 512 512s-230.4 512-512 512S0 793.6 0 512 230.4 0 512 0z m192.96 261.888l-259.904 78.784c-51.2 13.76-90.592 53.184-106.336 104.384L259.936 704.96c-5.888 15.776 0 33.472 11.808 45.312 7.872 9.824 21.696 13.76 33.472 13.76 3.936 0 9.856 0 13.792-1.984l259.904-78.784c51.2-13.76 90.592-53.184 106.336-104.384l78.784-259.904c5.888-15.776 0-33.472-11.808-45.312-13.792-13.76-31.52-17.728-47.296-11.808v-0.032z m-96.448 295.424a79.872 79.872 0 0 1-53.184 53.152l-200.864 59.072 61.056-202.816a79.904 79.904 0 0 1 53.184-53.184l200.864-59.072-61.056 202.848zM472.64 512a39.36 39.36 0 1 0 78.72 0 39.36 39.36 0 0 0-78.72 0z"
+                fill="#dbdbdb" p-id="7075" data-spm-anchor-id="a313x.search_index.0.i6.29583a81RxO4Dj"
+                class="selected"></path>
+        </svg>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto" th:with="menu = ${menuFinder.getPrimary()}">
+            <li class="nav-item" th:each="menuItem : ${menu.menuItems}">
+                <a class="nav-link" th:text="${menuItem.status.displayName}" th:href="${menuItem.status.href}"
+                    th:target="${menuItem.spec.target?.value}">
+                </a>
+            </li>
+        </ul>
+        <div id="main">
+            <div id="show_date" aria-live="polite">
+                <script>
+                    (function() {
+                        var showDateElement = null;
+                        function updateDate() {
+                            var currentTime = new Date().toLocaleDateString(
+                                "zh-CN",
+                                {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    weekday: "long"
+                                }
+                            );
+                            showDateElement = document.getElementById("show_date");
+                            if (showDateElement) {
+                                showDateElement.textContent = currentTime;
+                            }
+                        }
+                        updateDate();
+                        setInterval(updateDate, 1000);
+                    })();
+                </script>
+            </div>
+            <div id="show_time" aria-live="polite">
+                <script>
+                    (function() {
+                        var showTimeElement = null;
+                        function updateTime() {
+                            var currentTime = new Date().toLocaleTimeString(
+                                "zh-CN",
+                                {
+                                    hour12: false,
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                }
+                            );
+                            showTimeElement = document.getElementById("show_time");
+                            if (showTimeElement) {
+                                showTimeElement.textContent = currentTime;
+                            }
+                        }
+                        updateTime();
+                        setInterval(updateTime, 1000);
+                    })();
+                </script>
+            </div>
+        </div>
+    </div>
+</nav>

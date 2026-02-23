@@ -1,0 +1,23 @@
+<!-- 页面背景 -->
+<div th:fragment="banner" class="banner-video" role="img" aria-label="页面背景">
+    <th:block th:if="${theme.config.style.cover_type == 'false'}">
+        <style>
+            .banner-video {
+                position: fixed !important;
+            }
+        </style>
+    </th:block>
+    <th:block
+        th:if="${#strings.toLowerCase(#strings.substring(theme.config.style.cover_img, #strings.length(theme.config.style.cover_img) - 4))} == '.mp4'">
+        <video autoplay loop muted playsinline aria-label="背景视频">
+            <source th:src="${theme.config.style.cover_img}" type="video/mp4">
+        </video>
+    </th:block>
+    <th:block
+        th:unless="${#strings.toLowerCase(#strings.substring(theme.config.style.cover_img, #strings.length(theme.config.style.cover_img) - 4))} == '.mp4'">
+        <img th:src="${theme.config.style.cover_img}" alt="页面背景" />
+    </th:block>
+    <div class="bottom-cover"
+        style="background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(244 248 251 / 0.6) 50%, rgb(244 248 251) 100%);">
+    </div>
+</div>

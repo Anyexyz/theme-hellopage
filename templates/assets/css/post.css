@@ -1,16 +1,11 @@
-/* 文章容器 */
-.container {
-    margin: 0 auto;
-    padding: 20px;
-}
-
 /* 文章标题 */
-.title {
+h2.title {
     font-size: 2rem;
     font-weight: bold;
     color: #2c3e50;
     margin-bottom: 1.5rem;
     text-align: center;
+    text-shadow: none;
 }
 
 /* 文章内容区域 */

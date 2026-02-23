@@ -1,0 +1,24 @@
+<!-- 页脚 -->
+<div th:fragment="footer" class="mt-5 mb-3 footer text-muted text-center" role="contentinfo">
+    <div th:if="${not #strings.isEmpty(theme.config.beian.icp_text)}">
+        <!-- ICP备案 -->
+        <a class="icp" href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener"
+            th:text="${theme.config.beian.icp_text}">
+        </a>
+    </div>
+    <div th:if="${not #strings.isEmpty(theme.config.beian.gongan_text)}">
+        <!-- 公安备案 -->
+        <a class="icp"
+            th:href="'https://beian.mps.gov.cn/#/query/webSearch?recordcode=' + ${theme.config.beian.gongan_text}"
+            target="_blank" rel="nofollow noopener">
+            <img th:src="@{/assets/img/gongan_beian.png}" alt="公安网备" width="16" height="16">
+            <span th:text="${theme.config.beian.gongan_text}"></span>
+        </a>
+    </div>
+    <!-- 版权信息 -->
+    <p>Copyright © <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}"></span>
+        <a th:href="${site.url}" th:text="${site.title}"></a>. All Rights Reserved.
+        Powered by <a href="https://halo.run" target="_blank" rel="noopener">Halo</a> <span th:text="${site.version}"></span>
+    </p>
+    <halo:footer />
+</div>

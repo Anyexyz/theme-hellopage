@@ -1,0 +1,11 @@
+<!-- 公共脚本 -->
+<th:block th:fragment="scripts">
+    <script src="https://cdn.jsdmirror.com/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"
+        type="application/javascript"></script>
+    <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"
+        type="application/javascript"></script>
+
+    <div style="display:none;" class="back-to" id="toolBackTop" aria-hidden="true">
+        <a title="返回顶部" onclick="window.scrollTo(0,0);return false;" href="#top" class="back-top"></a>
+    </div>
+</th:block>
